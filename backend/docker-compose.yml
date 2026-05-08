@@ -1,0 +1,15 @@
+services:
+  consolidated-maf-agent:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    image: consolidated-maf-agent:0.1.0
+    container_name: consolidated-maf-agent
+    ports:
+      - "9098:9098"
+    env_file:
+      - ./.env
+    volumes:
+      - ../logs:/app/logs
+      - ../db:/app/db
+    restart: unless-stopped
