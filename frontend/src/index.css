@@ -1,0 +1,262 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design tokens — light ─────────────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --color-surface:                #f8f9fa;
+  --color-surface-container:      #eef0f1;
+  --color-surface-container-low:  #f3f4f5;
+  --color-surface-container-high: #e8eaeb;
+
+  /* Content */
+  --color-on-surface:             #191c1d;
+  --color-on-surface-variant:     #3f4849;
+  --color-outline:                #6f7979;
+  --color-outline-variant:        #bec8c9;
+
+  /* Brand */
+  --color-primary:                #8127cf;
+  --color-on-primary:             #ffffff;
+  --color-primary-container:      #f0e3ff;
+  --color-on-primary-container:   #2c0060;
+
+  --color-secondary:              #5b4097;
+  --color-on-secondary:           #ffffff;
+  --color-secondary-container:    #e8deff;
+  --color-on-secondary-container: #1a0059;
+
+  --color-tertiary:               #006874;
+  --color-on-tertiary:            #ffffff;
+  --color-tertiary-container:     #97f0ff;
+  --color-on-tertiary-container:  #001f24;
+
+  /* Semantic */
+  --color-error:                  #ba1a1a;
+  --color-on-error:               #ffffff;
+  --color-error-container:        #ffdad6;
+  --color-on-error-container:     #410002;
+
+  /* Scrim / shadow */
+  --color-scrim:                  #000000;
+
+  /* Sidebar */
+  --sidebar-width:                280px;
+}
+
+/* ── Design tokens — dark ──────────────────────────────────────────────────── */
+.dark {
+  --color-surface:                #191c1d;
+  --color-surface-container:      #1e2122;
+  --color-surface-container-low:  #191c1d;
+  --color-surface-container-high: #282c2d;
+
+  --color-on-surface:             #e1e3e4;
+  --color-on-surface-variant:     #bec8c9;
+  --color-outline:                #889393;
+  --color-outline-variant:        #3f4849;
+
+  --color-primary:                #d4aaff;
+  --color-on-primary:             #430080;
+  --color-primary-container:      #6200b0;
+  --color-on-primary-container:   #ecdcff;
+
+  --color-secondary:              #cebdff;
+  --color-on-secondary:           #301075;
+  --color-secondary-container:    #46288c;
+  --color-on-secondary-container: #e8deff;
+
+  --color-tertiary:               #4fd8eb;
+  --color-on-tertiary:            #00363d;
+  --color-tertiary-container:     #004f58;
+  --color-on-tertiary-container:  #97f0ff;
+
+  --color-error:                  #ffb4ab;
+  --color-on-error:               #690005;
+  --color-error-container:        #93000a;
+  --color-on-error-container:     #ffdad6;
+}
+
+/* ── Global resets & base ──────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  min-height: 100dvh;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#root {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-outline);
+}
+
+/* ── Typing cursor (used in TypingIndicator) ───────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: currentColor;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  border-radius: 1px;
+  animation: blink 1s step-start infinite;
+}
+
+/* ── Message bubble prose (react-markdown output) ──────────────────────────── */
+
+/* paragraphs */
+.message-content p {
+  margin: 0 0 0.6em;
+}
+.message-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* headings */
+.message-content h1,
+.message-content h2,
+.message-content h3,
+.message-content h4 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0.9em 0 0.4em;
+}
+.message-content h1:first-child,
+.message-content h2:first-child,
+.message-content h3:first-child {
+  margin-top: 0;
+}
+.message-content h1 { font-size: 1.15em; }
+.message-content h2 { font-size: 1.05em; }
+.message-content h3 { font-size: 0.975em; }
+.message-content h4 { font-size: 0.9em;  }
+
+/* lists */
+.message-content ul,
+.message-content ol {
+  margin: 0.4em 0 0.6em 1.25em;
+  padding: 0;
+}
+.message-content ul { list-style-type: disc; }
+.message-content ol { list-style-type: decimal; }
+.message-content li {
+  margin: 0.2em 0;
+}
+.message-content li > p {
+  margin: 0;
+}
+
+/* nested lists */
+.message-content ul ul,
+.message-content ol ul { list-style-type: circle; }
+.message-content ul ul ul,
+.message-content ol ul ul { list-style-type: square; }
+
+/* inline emphasis */
+.message-content strong { font-weight: 600; }
+.message-content em     { font-style: italic; }
+
+/* links */
+.message-content a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}
+.message-content a:hover { opacity: 0.8; }
+
+/* blockquote */
+.message-content blockquote {
+  margin: 0.5em 0;
+  padding: 0.4em 0.75em;
+  border-left: 3px solid var(--color-outline-variant);
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+}
+.message-content blockquote p { margin: 0; }
+
+/* horizontal rule */
+.message-content hr {
+  border: none;
+  border-top: 1px solid var(--color-outline-variant);
+  margin: 0.75em 0;
+}
+
+/* tables (GFM) */
+.message-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.6em 0;
+  font-size: 0.875em;
+}
+.message-content th,
+.message-content td {
+  border: 1px solid var(--color-outline-variant);
+  padding: 0.35em 0.65em;
+  text-align: left;
+}
+.message-content th {
+  background: var(--color-surface-container-high);
+  font-weight: 600;
+}
+.message-content tr:nth-child(even) td {
+  background: var(--color-surface-container-low);
+}
+
+/* code */
+.message-content code {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
+  font-size: 0.875em;
+  background: var(--color-surface-container-high);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+.message-content pre {
+  background: var(--color-surface-container-high);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  font-size: 0.8125rem;
+  margin: 0.5em 0;
+}
+.message-content pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}

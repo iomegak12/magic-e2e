@@ -1,0 +1,12 @@
+services:
+  cortex-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:9098}
+    image: cortex-interface:0.1.0
+    container_name: cortex-ui
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
